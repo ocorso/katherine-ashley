@@ -1,0 +1,52 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-teaching">
+  <!-- Defines the element's style and local DOM -->
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 16px;
+      }
+      img { width: 100%;}
+    </style>
+    <h1>Teaching</h1>
+    <div class="card">
+      <h2>Assistant Professor</h2>
+      <h3>Montclair State University, Feliciano School of Business</h3>
+      <ul>
+        <li>Pricing Analytics | INFO 492</li>
+        <li>Statistical Methods in Business | INFO 240-16</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Graduate Student Instructor</h2> 
+      <h3>University of California Berkeley, Haas School of Business</h3>
+      <ul>
+        <li>Weekend MBA core course: Operations Management <em>(Fall 2015)<br>Professor Pnina Feldman</em>
+          <ul>
+            <li>Responsibilities include: teaching an 80-minute review section each week;&nbsp;developing and updating course materials; grading assignments; evaluating class participation<br>&nbsp;</li>
+          </ul>
+        </li>
+        <li>Full-time MBA core course: Operations Management <em>(Spring 2013, Spring 2014)<br>Professor Terry Taylor</em>
+          <ul>
+            <li>Responsibilities included: teaching two sessions of an 80-minute review section each week; leading a 2-hour final review session attended by approximately 100 students; one-on-one tutoring for 5-7 students per semester; developing practice problems and other supplementary course materials; grading assignments; evaluating class participation<br>&nbsp;</li>
+          </ul>
+        </li>
+        <li>Undergraduate core course: Analytic Decision Modeling Using Spreadsheets <em>(Fall 2012, Fall 2014)<br>Professors Terry Hendershott and Thomas Lee</em>
+          <ul>
+            <li>Responsibilities included: teaching review sections several times throughout the semester; holding office hours; overseeing a weekly recitation session in which students worked through exercises; grading assignments; managing a team of five other Graduate Student Instructors for the course</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </template>
+  <!-- Creates the element's prototype and registers it -->
+  <script>
+    Polymer({
+      is: 'my-teaching'
+    });
+  </script>
+</dom-module>

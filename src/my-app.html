@@ -1,0 +1,191 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="my-icons.html">
+
+<dom-module id="my-app">
+  <template>
+    <style>
+      :host {
+        --app-primary-color: #4285f4;
+        --app-secondary-color: black;
+
+        display: block;
+      }
+
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: var(--app-secondary-color);
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected {
+        color: black;
+        font-weight: bold;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <app-drawer-layout fullbleed>
+      <!-- oc: Drawer content for tabs: force-narrow -->
+      <app-drawer id="drawer">
+        <app-toolbar>Menu</app-toolbar>
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          
+          <!-- oc: attempting dom-repeat -->
+          <template is="dom-repeat" items="{{items}}">
+            <a name="{{item.link}}" href="/{{item.link}}">{{item.title}}</a>
+          </template>
+        </iron-selector>
+      </app-drawer>
+
+      <!-- oc: Main content -->
+      <app-header-layout has-scrolling-region>
+
+        <app-header condenses reveals effects="waterfall">
+          <app-toolbar>
+            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <div main-title>Dr. Katherine Ashley</div>
+          </app-toolbar>
+
+      <!-- oc: Tabs on desktop -->
+          <app-toolbar class="tabs-bar" hidden$="{{!wideLayout}}">
+          <paper-tabs selected="{{page}}" attr-for-selected="name">
+            <template is="dom-repeat" items="{{items}}">
+              <paper-tab name="{{item.link}}">{{item.title}}</paper-tab>
+            </template>
+          </paper-tabs>
+        </app-toolbar>
+
+        </app-header>
+
+        <iron-pages
+            selected="[[page]]"
+            attr-for-selected="name"
+            fallback-selection="view404"
+            role="main">
+          <my-about name="about"></my-about>
+          <my-research name="research"></my-research>
+          <my-teaching name="teaching"></my-teaching>
+          <my-office-hours name="office-hours"></my-office-hours>
+          <my-contact name="contact"></my-contact>
+          <my-view404 name="view404"></my-view404>
+        </iron-pages>
+      </app-header-layout>
+
+    </app-drawer-layout>
+
+    <iron-media-query query="min-width: 600px" query-matches="{{wideLayout}}"></iron-media-query>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-app',
+
+      properties: {
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged',
+        },
+        wideLayout: {
+          type: Boolean,
+          value: false,
+          observer: '_onLayoutChange',
+        },
+        items:{
+          type: Array,
+          value: function(){
+            return [
+              {'title':'About',
+              'link': 'about',
+              }, 
+               {'title':'Research',
+              'link': 'research',
+              }, 
+               {'title':'Teaching',
+              'link': 'teaching',
+              }, 
+               {'title':'Office Hours',
+              'link': 'office-hours',
+              }, 
+               {'title':'Contact',
+              'link': 'contact',
+              }, 
+            ];
+          }
+        }
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)',
+      ],
+
+      _onLayoutChange: function(wide){
+        console.log('_onLayoutChange: wide:'+wide);
+        var drawer = this.$.drawer;
+        if(wide && drawer.opened){
+          drawer.opened = false;
+        }
+      },
+
+      _routePageChanged: function(page) {
+        this.page = page || 'about';
+
+        if (!this.$.drawer.persistent) {
+          this.$.drawer.close();
+        }
+      },
+
+      _pageChanged: function(page) {
+        // Load page import on demand. Show 404 page if fails
+        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+        this.importHref(resolvedPageUrl, null, this._showPage404, true);
+      },
+
+      _showPage404: function() {
+        this.page = 'view404';
+      },
+    });
+  </script>
+</dom-module>

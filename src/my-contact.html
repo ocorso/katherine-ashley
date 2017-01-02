@@ -1,0 +1,50 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-contact">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+
+    <h1>Contact Me</h1>
+    <div class="card">
+      <form is="iron-form" id="form" method="post" action="/form/handler">
+        <paper-input name="name" label="Your name"></paper-input>
+        <paper-input name="phone" label="Your phone number">
+          <iron-icon icon="phone" prefix></iron-icon>
+        </paper-input>
+        <paper-input name="email" label="Your email">
+          <iron-icon icon="mail" prefix></iron-icon>
+        </paper-input>
+        <paper-textarea label="Enter a message">
+          <iron-icon icon="message" prefix></iron-icon>
+        </paper-textarea>
+      </form>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-contact',
+    });
+  </script>
+</dom-module>

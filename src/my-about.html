@@ -1,0 +1,38 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-about">
+  <!-- Defines the element's style and local DOM -->
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 16px;
+      }
+      img { width: 100%;}
+    </style>
+    <h1>About</h1>
+    <div class="container flex-horizontal">
+      <div class="card flex2child">
+        <img src="../images/katherineashley.jpg" alt="Dr. Kate Ashley Portrait" />
+      </div>
+      <div class="card flexchild">
+        <p><strong>Kate Ashley</strong><br>Ph.D. (Operations Management, 2016)<br>Haas School of Business<br>University of California, Berkeley<br><a target="_blank" href="https://www.dropbox.com/s/sclcvxa342x3sr8/Kate_Ashley_CV.pdf?dl=0">CV</a> •&nbsp;<a target="_blank" href="mailto:ashleyk@montclair.edu">Contact via email</a></p>
+      </div>
+    </div>
+    <div class="card">
+      <p>My research uses economic models to answer questions related to service operations, including pricing decisions, capacity choice, and how much information to share with customers. My current work focuses on settings where both customers and firms are forward-looking ("strategic") and optimize based on expectations about each other's actions. In my dissertation papers, I incorporate both game-theoretical models and structural estimation techniques.</p>
+
+      <p>In my job market paper, I use an original dataset from the airline industry to analyze customer response to inventory announcements. In a second paper that uses the same data, I analyze the optimal design of announcement policies in the presence of strategic consumer behavior.</p>
+    </div>
+  
+  </template>
+  <!-- Creates the element's prototype and registers it -->
+  <script>
+    Polymer({
+      is: 'my-about'
+    });
+  </script>
+</dom-module>

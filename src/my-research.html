@@ -1,0 +1,37 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-research">
+  <!-- Defines the element's style and local DOM -->
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 16px;
+      }
+      img {
+        width: 100%;
+      }
+    </style>
+    <h1>Research</h1>
+<div class="card">
+    <h2>Working Papers (links forthcoming)</h2>
+    <ul>
+      <li>"Pricing reservations when customers are strategic," with Pnina Feldman</li>
+      <li>"Interpreting '3 seats left': An empirical analysis of airline inventory announcements," with Pnina Feldman and Jun Li</li>
+      <li>"Optimal design of inventory announcement policies: A structural estimation approach," with Pnina Feldman and Jun Li</li>
+    </ul>
+</div>
+<div class="card">
+  <h2>Journal Publications</h2>
+    <ul><li>"Pricing congestion for arriving flights at Chicago O'Hare airport," with Ian Savage (2010). Journal of Air Transport Management, Vol. 16, No. 1, pp. 36-41.</li></ul>
+  </div>
+  </template>
+  <!-- Creates the element's prototype and registers it -->
+  <script>
+    Polymer({
+      is: 'my-research'
+    });
+  </script>
+</dom-module>
